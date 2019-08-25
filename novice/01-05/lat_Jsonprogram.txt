@@ -1,0 +1,1 @@
+{"Maulana": {"Nama": "Maulana", "Barang": "Kopi Semi", "Harga": 5000}, "Condro": {"Nama": "Condro", "Barang": "Kopi Agak Manis", "Harga": 5000}, "Dion": {"Nama": "Dion", "Barang": "Kopi Pahit", "Harga": 4000}, "Merkuri": {"Nama": "Merkuri", "Barang": "Kopi Biasa", "Harga": 4000}}
