@@ -1,3 +1,5 @@
+
+
 class Hantu:
     def __init__(self,name,place):
         self.name = name
@@ -8,7 +10,8 @@ class Jin(Hantu):
         Hantu.__init__(self,name,place)
         self.booing = booing
 
-Tomang = Jin('Tomang')
-print(Tomang.name)
-print(Tomang.place)
-print(Tomang.booing)
+ Tomang = Jin('Tomang')
+ print(Tomang.name)
+ print(Tomang.place)
+ print(Tomang.booing)
+
