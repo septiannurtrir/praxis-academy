@@ -1,0 +1,354 @@
+(base) septiannurtrir@ubuntu:~$ mysql -u septiannurtrir -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 32
+Server version: 10.1.41-MariaDB-0ubuntu0.18.04.1 Ubuntu 18.04
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use kasus;
+ERROR 1049 (42000): Unknown database 'kasus'
+MariaDB [(none)]> use Kasus;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [Kasus]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Kasus              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| siswa              |
++--------------------+
+5 rows in set (0.00 sec)
+
+MariaDB [Kasus]> show tables;
++-----------------+
+| Tables_in_Kasus |
++-----------------+
+| Table3          |
++-----------------+
+1 row in set (0.00 sec)
+
+MariaDB [Kasus]> desc Table3
+    -> ;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| salutation_ID | int(10)     | NO   | PRI | NULL    | auto_increment |
+| salutation    | varchar(30) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.06 sec)
+
+MariaDB [Kasus]> create table Table2(
+    -> membership_ID INT (10) DEFAULT NULL,
+    -> movies_Rented VARCHAR (30) DEFAULT NULL,
+    -> KEY 'fk_movies_membership' ('membership_ID'),
+    -> CONSTRAINT 'fk_movies_membership' FOREIGN KEY ('membership_ID') REFERENCES 'membership' ('membership_ID') ON DELETE CASCADE
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''fk_movies_membership' ('membership_ID'),
+CONSTRAINT 'fk_movies_membership' FORE' at line 4
+MariaDB [Kasus]> create table Table2(
+    -> membership_ID INT (10) DEFAULT NULL,
+    -> movies_Rented VARCHAR (30) DEFAULT NULL,
+    -> KEY 'fk_ID_Rented' ('membership_ID'),
+    -> CONSTRAINT `fk_ID_Rented` FOREIGN KEY (`membership_ID`) REFERENCES `ID` (`membership_ID`) ON DELETE CASCADE
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''fk_ID_Rented' ('membership_ID'),
+CONSTRAINT `fk_ID_Rented` FOREIGN KEY (`member' at line 4
+MariaDB [Kasus]> create table Table1(
+    -> membership_ID INT (10) NOT NULL AUTO_INCREMENT,
+    -> full_Names CHAR (30) DEFAULT NULL,
+    -> physical_Address VARCHAR (30) DEFAULT NULL,
+    -> salutation_ID INT (10) DEFAULT NULL,
+    -> PRIMARY KEY (membership_ID),
+    -> KEY `fk_membership_salutation` FOREIGN KEY (`salutation_ID`) REFERENCES `salutation` (`salutation_ID`) ON DELETE CASCADE
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FOREIGN KEY (`salutation_ID`) REFERENCES `salutation` (`salutation_ID`) ON DELET' at line 7
+MariaDB [Kasus]> desc table3
+    -> ;
+ERROR 1146 (42S02): Table 'Kasus.table3' doesn't exist
+MariaDB [Kasus]> desc Table3;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| salutation_ID | int(10)     | NO   | PRI | NULL    | auto_increment |
+| salutation    | varchar(30) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+MariaDB [Kasus]> create table Table1(
+    -> membership_ID INT (10) NOT NULL,
+    -> full_Names VARCHAR (30) NOT NULL,
+    -> physical_Address CHAR (30) NOT NULL,
+    -> salutation_ID INT (10) NOT NULL,
+    -> PRIMARY KEY (ID)
+    -> );
+ERROR 1072 (42000): Key column 'ID' doesn't exist in table
+MariaDB [Kasus]> create table Table1(
+    -> membership_ID INT (10) NOT NULL,
+    -> full_Names VARCHAR (30) NOT NULL,
+    -> physical_Address CHAR (30) NOT NULL,
+    -> salutation_ID INT (10) NOT NULL,
+    -> PRIMARY KEY (membership_ID)
+    -> );
+Query OK, 0 rows affected (0.38 sec)
+
+MariaDB [Kasus]> create table Table2(
+    -> membership_ID INT (10) NOT NULL,
+    -> salutation_ID INT (10) NOT NULL,
+    -> FOREIGN KEY (membership_ID) REFERENCES Table1 (membership_ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 4
+MariaDB [Kasus]> create table Table2(
+    -> salutation_ID INT (10) NOT NULL,
+    -> salutation_ID INT (10) NOT NULL,
+    -> salutation_ID INT (10) NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 4
+MariaDB [Kasus]> create table Table2(
+    -> membership_ID INT (10) NOT NULL,
+    -> salutation_ID INT (10) NOT NULL,
+    -> PRIMARY KEY (membership_ID)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+MariaDB [Kasus]> ALTER TABLE Table2
+    -> ADD FOREIGN KEY (membership_ID) REFERENCES Table1 (membership_ID);
+Query OK, 0 rows affected (0.17 sec)               
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Kasus]> insert into Table3 (salutation_ID,salutation)
+    -> VALUES (1, 'Mr.');
+Query OK, 1 row affected (0.12 sec)
+
+MariaDB [Kasus]> desc Table3;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| salutation_ID | int(10)     | NO   | PRI | NULL    | auto_increment |
+| salutation    | varchar(30) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+MariaDB [Kasus]> select * from Table3;
++---------------+------------+
+| salutation_ID | salutation |
++---------------+------------+
+|             1 | Mr.        |
++---------------+------------+
+1 row in set (0.01 sec)
+
+MariaDB [Kasus]> insert into Table3 (salutation_ID,salutation)
+    -> VALUES (1, 'Mr.');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [Kasus]> insert into Table3 (salutation_ID,salutation)
+    -> VALUES (2, 'Ms.');
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [Kasus]> insert into Table3 (salutation_ID,salutation)
+    -> VALUES (3, 'Mrs.');
+Query OK, 1 row affected (0.06 sec)
+
+MariaDB [Kasus]> insert into Table3 (salutation_ID,salutation)
+    -> VALUES (4, 'Dr.');
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [Kasus]> insert into Table1 (membership_ID,full_Names,physical_Address,salutation_ID)
+    -> VALUES (1, 'Janet Jones', 'First Street Plot No 4', 2);
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [Kasus]> insert into Table1 (membership_ID,full_Names,physical_Address,salutation_ID)
+    -> VALUES (2, 'Robert Phil', '3rd Street 34', 1);
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [Kasus]> insert into Table1 (membership_ID,full_Names,physical_Address,salutation_ID)
+    -> VALUES (3, 'Robert Phil', '5th Avenue', 1);
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (1, 'Pirates of the Caribbean);
+    '> '
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (1, 'Pirates of the Caribbean');
+ERROR 1054 (42S22): Unknown column 'movies_Rented' in 'field list'
+MariaDB [Kasus]> drop table Table2;
+Query OK, 0 rows affected (0.13 sec)
+
+MariaDB [Kasus]> create table Table2(
+    -> membership_ID INT (10) NOT NULL,
+    -> movies_Rented CHAR (30) NOT NULL,
+    -> PRIMARY KEY (membership_ID)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [Kasus]> ALTER TABLE Table2
+    -> ADD FOREIGN KEY (membership_ID) REFERENCES Table1 (membership_ID);
+Query OK, 0 rows affected (0.09 sec)               
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (1, 'Pirates of the Caribbean');
+Query OK, 1 row affected (0.32 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (1, 'Clash of the Titans');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [Kasus]> 
+
+-----------------------------------Trying Next Day-------------------------------------------
+
+MariaDB [Kasus]> drop table Table2;
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [Kasus]> create table Table2(
+    -> membership_ID INT (10) NOT NULL,
+    -> movies_Rented CHAR (30) NOT NULL,
+    -> foreign key (membership_ID) references Table1 (membership_ID)
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+MariaDB [Kasus]> desc Table2;
++---------------+----------+------+-----+---------+-------+
+| Field         | Type     | Null | Key | Default | Extra |
++---------------+----------+------+-----+---------+-------+
+| membership_ID | int(10)  | NO   | MUL | NULL    |       |
+| movies_Rented | char(30) | NO   |     | NULL    |       |
++---------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (1, 'Pirates of the Caribbean');
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (1, 'Clash of the Titans');
+Query OK, 1 row affected (0.10 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (2, 'Forgetting Sarah Marshal');
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (2, 'Daddy`s Little Girls');
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [Kasus]> insert into Table2 (membership_ID,movies_Rented)
+    -> VALUES (3, 'Clash of the titans');
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [Kasus]> desc Table2;
++---------------+----------+------+-----+---------+-------+
+| Field         | Type     | Null | Key | Default | Extra |
++---------------+----------+------+-----+---------+-------+
+| membership_ID | int(10)  | NO   | MUL | NULL    |       |
+| movies_Rented | char(30) | NO   |     | NULL    |       |
++---------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [Kasus]> show * from Table2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* from Table2' at line 1
+MariaDB [Kasus]> select * from Table2;
++---------------+--------------------------+
+| membership_ID | movies_Rented            |
++---------------+--------------------------+
+|             1 | Pirates of the Caribbean |
+|             1 | Clash of the Titans      |
+|             2 | Forgetting Sarah Marshal |
+|             2 | Daddy`s Little Girls     |
+|             3 | Clash of the titans      |
++---------------+--------------------------+
+5 rows in set (0.17 sec)
+
+MariaDB [Kasus]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Kasus              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| siswa              |
++--------------------+
+5 rows in set (0.02 sec)
+
+MariaDB [Kasus]> show tables;
++-----------------+
+| Tables_in_Kasus |
++-----------------+
+| Table1          |
+| Table2          |
+| Table3          |
++-----------------+
+3 rows in set (0.00 sec)
+
+MariaDB [Kasus]> desc Table1;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| membership_ID    | int(10)     | NO   | PRI | NULL    |       |
+| full_Names       | varchar(30) | NO   |     | NULL    |       |
+| physical_Address | char(30)    | NO   |     | NULL    |       |
+| salutation_ID    | int(10)     | NO   |     | NULL    |       |
++------------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [Kasus]> desc Table2;
++---------------+----------+------+-----+---------+-------+
+| Field         | Type     | Null | Key | Default | Extra |
++---------------+----------+------+-----+---------+-------+
+| membership_ID | int(10)  | NO   | MUL | NULL    |       |
+| movies_Rented | char(30) | NO   |     | NULL    |       |
++---------------+----------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [Kasus]> desc Table3;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| salutation_ID | int(10)     | NO   | PRI | NULL    | auto_increment |
+| salutation    | varchar(30) | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+MariaDB [Kasus]> select * from Table1;
++---------------+-------------+------------------------+---------------+
+| membership_ID | full_Names  | physical_Address       | salutation_ID |
++---------------+-------------+------------------------+---------------+
+|             1 | Janet Jones | First Street Plot No 4 |             2 |
+|             2 | Robert Phil | 3rd Street 34          |             1 |
+|             3 | Robert Phil | 5th Avenue             |             1 |
++---------------+-------------+------------------------+---------------+
+3 rows in set (0.00 sec)
+
+MariaDB [Kasus]> select * from Table2;
++---------------+--------------------------+
+| membership_ID | movies_Rented            |
++---------------+--------------------------+
+|             1 | Pirates of the Caribbean |
+|             1 | Clash of the Titans      |
+|             2 | Forgetting Sarah Marshal |
+|             2 | Daddy`s Little Girls     |
+|             3 | Clash of the titans      |
++---------------+--------------------------+
+5 rows in set (0.00 sec)
+
+MariaDB [Kasus]> select * from Table3;
++---------------+------------+
+| salutation_ID | salutation |
++---------------+------------+
+|             1 | Mr.        |
+|             2 | Ms.        |
+|             3 | Mrs.       |
+|             4 | Dr.        |
++---------------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [Kasus]> 
+
+
