@@ -1,0 +1,23 @@
+<HTML>
+    <BODY>
+    <table>
+     <thead>
+     <tr>
+      <th>membership_ID</th>
+      <th>full_Names</th>
+      <th>physical_Address</th>
+      <th>salutation_ID</th>
+     </tr>
+     </thead>
+     <tbody>
+      {% for row in value %}
+       <tr>
+        <td>{{row[0]}}</td>
+        <td>{{row[1]}}</td>
+        <td>{{row[2]}}</td>
+       </tr>
+      {% endfor %}
+     </tbody>
+    </table>
+    </BODY>
+    </HTML>

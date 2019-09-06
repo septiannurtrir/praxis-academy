@@ -17,11 +17,19 @@ def index():
         full_Names = details['names']
         physical_Address = details['address']
         salutation_ID = details['salutate']
-        cur = mysql.connection.cursor()
+        cur = mysqlsa.connection.cursor()
         cur.execute("INSERT INTO Table1 (membership_ID, full_Names, physical_Address, salutation_ID) VALUES (%s, %s, %s, %s)", (membership_ID, full_Names, physical_Address, salutation_ID))
         mysql.connection.commit()
         cur.close()
         return 'success'
     return render_template('index.html')
 
-    
+ @app.route('/rent')
+ def gaji():
+     cur = mysql.connection.cursor()
+     cur.execute('''SELECT membership_ID, full_Names, physical_Address, salutation_ID''')
+     rv = cur.fetchall()
+     return render_template("indexrent.html",value=rv)
+
+if __name__ == '__main__':
+    app.run()   
